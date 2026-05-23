@@ -1,0 +1,696 @@
+/* ========================================
+   IMPORTS
+======================================== */
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Recursive:wght@300;400;500;600;700&display=swap");
+
+/* ========================================
+   CSS VARIABLES
+======================================== */
+:root {
+  --color-bg-primary: #0f1319;
+  --color-bg-secondary: #161b22;
+  --color-bg-tertiary: #282e39;
+  --color-bg-card: #0b0e14;
+  --color-navbar: #1c2128;
+
+  --color-text-main: #e0e6ed;
+  --color-text-muted: #acb1b8;
+  --color-text-hover: #fabd2f;
+
+  --color-red: #ff4d4d;
+  --color-blue: #4a89ff;
+  --color-green: #40d352;
+
+  /* Cookies title gradient colors */
+  --color-cookies-1: #40d352;
+  --color-cookies-2: #6d5e4c;
+  --color-cookies-3: #e0e6ed;
+
+  --color-border: #e0e6ed;
+
+  --font-title: "Orbitron", sans-serif;
+  --font-subtitle: "Plus Jakarta Sans", sans-serif;
+  --font-body: "Recursive", sans-serif;
+
+  --transition: 0.3s ease;
+  --transition-slow: 0.6s ease;
+}
+
+/* ========================================
+   RESET & BASE
+======================================== */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-main);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ========================================
+   SCROLL ANIMATION BASE
+======================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.reveal-left {
+  transform: translateX(-50px);
+}
+.reveal.reveal-right {
+  transform: translateX(50px);
+}
+.reveal.reveal-scale {
+  transform: scale(0.92);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-delay-1 {
+  transition-delay: 0.1s;
+}
+.reveal-delay-2 {
+  transition-delay: 0.2s;
+}
+.reveal-delay-3 {
+  transition-delay: 0.3s;
+}
+.reveal-delay-4 {
+  transition-delay: 0.4s;
+}
+.reveal-delay-5 {
+  transition-delay: 0.5s;
+}
+.reveal-delay-6 {
+  transition-delay: 0.6s;
+}
+
+/* ========================================
+   NAVBAR
+======================================== */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* clip content that scrolls behind navbar */
+  isolation: isolate;
+  padding: 2.6vw;
+}
+
+.navbar-logo {
+  position: absolute;
+  left: 0;
+  display: flex;
+  align-items: center;
+  margin-left: 2.6vw;
+  /* smooth transition for show/hide */
+  opacity: 1;
+  transform: translateX(0);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.navbar-logo img {
+  width: 15.625vw;
+}
+
+.navbar-logo.hidden {
+  opacity: 0;
+  transform: translateX(-16px);
+  pointer-events: none;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  height: 6.5vh;
+  justify-content: center;
+  gap: 1.5vw;
+  padding: 1.5vw;
+  background-color: var(--color-navbar);
+  border-radius: 1vw;
+}
+
+.navbar-links a {
+  margin-top: 0;
+  font-family: var(--font-subtitle);
+  font-size: 1vw;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  transition: color var(--transition);
+  font-style: italic;
+  text-decoration: none;
+}
+
+.navbar-links a:hover,
+.navbar-links a.active {
+  color: var(--color-text-hover);
+}
+
+
+/* ========================================
+   HERO SECTION – COOKING PAGE
+======================================== */
+.cooking-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3.5vw;
+  gap: 2.5vw;
+  position: relative;
+  overflow: hidden;
+  height: 80vh;
+}
+
+/* ---- LEFT SIDE ---- */
+.cooking-hero-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5vw;
+  position: relative;
+}
+
+.cooking-hero-subtitle {
+  font-family: var(--font-title);
+  font-size: 1.3vw;
+  font-weight: 700;
+  color: var(--color-cookies-2);
+  padding-left: 1vw;
+}
+
+/* Title block: stacked cookies image overlapping the text */
+.cooking-hero-title-block {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.cooking-hero-stack {
+  position: relative;
+  position: absolute;
+  z-index: 2;
+}
+
+.cooking-hero-stack img {
+  width: 10vw;
+}
+
+/* Title text sits to the right of the stack image */
+.cooking-hero-title-text {
+  font-family: var(--font-subtitle);
+  padding-left: 2vw;
+}
+
+.cooking-hero-title-text h1 {
+  font-size: 4.2vw;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+
+.cooking-hero-title-text .villa {
+  position: relative;
+  padding-left: 6vw;
+  z-index: 1;
+  color: var(--color-cookies-3);
+}
+
+.cooking-hero-title-text .cookies {
+  position: relative;
+  z-index: 3;
+  color: var(--color-cookies-3);
+}
+
+.cookies span {
+  color: var(--color-cookies-1);
+}
+
+.cooking-hero-description {
+  font-family: var(--font-body);
+  font-size: 1vw;
+  line-height: 1.4;
+  color: var(--color-text-main);
+  text-align: justify;
+  max-width: 33.33vw;
+  padding-left: 0.9vw;
+}
+
+/* ---- RIGHT SIDE ---- */
+.cooking-hero-right {
+}
+
+.cooking-hero-right img {
+  width: 55vw;
+}
+
+/* Gradient fades on all four sides */
+.cooking-hero-fade {
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.cooking-hero-fade-left {
+  top: 0;
+  left: 0;
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    var(--color-bg-primary) 0%,
+    transparent 100%
+  );
+}
+
+/* ========================================
+   OUR PRODUCT – CAROUSEL SECTION
+======================================== */
+.our-product {
+  padding: 5vw;
+  display: flex;
+  flex-direction: column;
+  gap: 3vw;
+  background: linear-gradient(180deg, #0f1319 0%, #161b22 100%);
+  overflow: hidden;
+}
+
+.our-product-title {
+  font-family: var(--font-subtitle);
+  font-size: 2vw;
+  font-weight: 400;
+  color: var(--color-text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.our-product-title .accent-bold {
+  font-weight: 800;
+  color: var(--color-text-main);
+}
+
+/* ---- Carousel Wrapper ---- */
+.carousel-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  position: relative;
+}
+
+/* Arrow buttons */
+.carousel-arrow {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 1vw;
+  display: flex;
+  align-items: center;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+}
+
+.carousel-arrow:hover {
+  opacity: 1;
+}
+
+.carousel-arrow img {
+  width: 1.5vw;
+  height: auto;
+  display: block;
+}
+
+/* Flip left arrow to point left */
+.carousel-arrow-right img {
+  transform: scaleX(-1);
+}
+
+/* Track container – clips overflow */
+.carousel-track-container {
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Track – flex row of items */
+.carousel-track {
+  display: flex;
+  justify-content: center;
+  gap: 2.5vw;
+  /* no transition by default; JS adds it during animation */
+  transition: none;
+  will-change: transform;
+}
+
+/* Each item is exactly 468px wide */
+.carousel-item {
+  flex: 0 0 24.375vw;
+  width: 24.375vw;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 57.7vh;
+  object-fit: cover;
+  border-radius: 1.3vw;
+  display: block;
+}
+
+/* ---- Dots ---- */
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.6vw;
+}
+
+.carousel-dot {
+  width: 1vw;
+  height: 2vh;
+  border-radius: 50%;
+  background: var(--color-text-muted);
+  opacity: 0.4;
+  transition:
+    background 0.3s ease,
+    opacity 0.3s ease;
+  cursor: default;
+}
+
+.carousel-dot.active {
+  background: var(--color-green);
+  opacity: 1;
+}
+
+/* ========================================
+   OUR ACTIVITIES
+======================================== */
+.activities {
+  padding: 5vw;
+  background-color: #11151c;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2vw;
+}
+
+.activities-title {
+  font-family: var(--font-subtitle);
+  font-size: 2vw;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  letter-spacing: 0.05em;
+}
+
+.activities-title .accent-white {
+  color: var(--color-text-main);
+  font-weight: 800;
+}
+
+/* Cards row */
+.activities-cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1.6vw;
+}
+
+/* Each card column */
+.activities-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6vw;
+}
+
+/* ── Label box (has the gradient border) ── */
+.card-label {
+  position: relative;
+  border-radius: 1vw;
+  padding: 1vw;
+  font-family: var(--font-body);
+  font-size: 1vw;
+  color: var(--color-text-main);
+  background-color: var(--color-bg-secondary);
+  width: 28.6vw;
+  height: 7vh;
+}
+
+.card-label::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 1vw;
+  padding: 0.2vw;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Red: kiri → transparan kanan */
+.border-red::before {
+  background: linear-gradient(to right, var(--color-red), transparent);
+  text-align: left;
+}
+
+/* Green: bawah → transparan atas */
+.border-green::before {
+  background: linear-gradient(to bottom, var(--color-green), transparent);
+  text-align: center;
+}
+
+/* Blue: kanan → transparan kiri */
+.border-blue::before {
+  background: linear-gradient(to left, var(--color-blue), transparent);
+  text-align: right;
+}
+
+.card-label strong {
+  font-weight: 700;
+}
+.card-label em {
+  font-style: italic;
+}
+
+/* ── Photo box (terpisah dari label) ── */
+.card-photo {
+  border-radius: 1vw;
+  overflow: hidden;
+}
+
+.card-photo img {
+  width: 28.6vw;
+  height: 61.7vh;
+  object-fit: cover;
+  display: block;
+}
+
+/* ========================================
+   THE MAKER
+======================================== */
+.the-maker {
+  background-color: var(--color-bg-primary);
+  padding: 5vw;
+  display: flex;
+  flex-direction: column;
+  gap: 3vw;
+}
+
+.the-maker-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.the-maker-eyebrow {
+  font-family: var(--font-body);
+  font-size: 2vw;
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+
+.the-maker-title {
+  font-family: var(--font-subtitle);
+  font-size: 3.6vw;
+  font-weight: 800;
+  color: var(--color-text-main);
+}
+
+/* 5 columns per row */
+.the-maker-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 3vw 2.2vh;
+}
+
+/* Each card: exactly 5 per row */
+.maker-card {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 calc((100% - 5vw) / 5);
+  width: calc((100% - 5vw) / 5);
+}
+
+.maker-card-img {
+  overflow: hidden;
+}
+
+.maker-card-img img {
+  width: 90%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  transform: none;
+  filter: none;
+  transition: transform 0.4s ease;
+  margin-bottom: 1.3vw;
+}
+
+.maker-card:hover .maker-card-img img {
+  transform: scale(1.04);
+}
+
+.maker-name {
+  font-family: var(--font-subtitle);
+  font-size: 1.3vw;
+  font-weight: 700;
+  color: var(--color-text-main);
+  text-align: left;
+}
+
+.maker-role {
+  font-family: var(--font-body);
+  font-size: 1vw;
+  color: var(--color-text-muted);
+  text-align: left;
+}
+
+/* ========================================
+   FOOTER
+======================================== */
+.footer {
+  background: var(--color-bg-card);
+  padding: 0 15vw;
+  height: 30vw;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  gap: 5vw;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-logo {
+  width: 16vw;
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+}
+
+.footer-inner h2 {
+  font-family: var(--font-title);
+  font-size: 3.5vw;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--color-text-main);
+  text-align: left;
+}
+
+.footer-inner-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.footer-visitus {
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+}
+
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+}
+
+.footer-inner-content h4 {
+  background-color: var(--color-bg-secondary);
+  width: 10vw;
+  height: 3.5vw;
+  font-size: 1.6vw;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1vw;
+  font-weight: 100;
+  text-transform: uppercase;
+  font-family: var(--font-subtitle);
+  color: var(--color-text-main);
+}
+
+.footer-inner-content p {
+  font-family: var(--font-body);
+  font-size: 1vw;
+  color: var(--color-text-main);
+  line-height: 1.5;
+  text-align: justify;
+}
+
+.contact-sosmed {
+  display: flex;
+  flex-direction: row;
+  gap: 1vw;
+}
+
+.contact-sosmed img {
+  width: 2.8vw;
+  height: 2.8vw;
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4vw;
+  padding: 0.5vw 0;
+}
