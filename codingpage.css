@@ -58,6 +58,7 @@ body {
 img {
   display: block;
   max-width: 100%;
+
 }
 
 a {
@@ -303,7 +304,6 @@ a {
   color: var(--color-text-main);
   background-color: var(--color-bg-secondary);
   width: 28.6vw;
-  height: 7vh;
 }
 
 .card-label::before {
@@ -725,7 +725,8 @@ a {
   gap: 1.2vh;
   border: rgba(224, 230, 237, 50%) 0.2vh solid;
   border-radius: 0 0 1vh 1vh;
-  overflow: auto;
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
 
 .so-card-body h3 {
@@ -741,6 +742,7 @@ a {
   font-size: 0.7vw;
   line-height: 1.7;
   color: var(--color-text-muted);
+
 }
 
 
@@ -955,6 +957,7 @@ a {
     margin-bottom: 0;
     pointer-events: none;
     transform: translateY(-6px);
+    z-index: 100;
   }
 
   .navbar-logo img {
@@ -968,6 +971,7 @@ a {
     padding: 2.5vw 5vw;
     height: auto;
     border-radius: 3vw;
+
   }
 
   .navbar-links a {
@@ -978,24 +982,45 @@ a {
   .hero {
     flex-direction: column;
     padding: 6vw 5vw;
-    gap: 6vw;
+    gap: 3vw;
     padding-top: 4vw;
   }
 
+  /* Image moves to the very top */
+  .hero-image-wrapper {
+    order: 1;
+    width: 100%;
+  }
+
+  .hero-image {
+    width: 100%;
+    border-radius: 3vw;
+  }
+
+  /* Content block comes below the image */
   .hero-content {
+    order: 2;
     max-width: 100%;
-    gap: 4vw;
+    display: flex;
+    flex-direction: column;
+    gap: 3vw;
   }
 
-  .hero-tag {
-    font-size: 3.5vw;
-  }
-
+  /* Title first inside content */
   .hero-title {
+    order: 1;
     font-size: 12vw;
   }
 
+  /* Division tag below the title */
+  .hero-tag {
+    order: 2;
+    font-size: 3.5vw;
+  }
+
+  /* Description last */
   .hero-description {
+    order: 3;
     font-size: 3.5vw;
   }
 
@@ -1003,15 +1028,7 @@ a {
     font-size: 3.5vw;
     padding-left: 5vw;
     margin-top: -3vw;
-  }
-
-  .hero-image-wrapper {
-    width: 100%;
-  }
-
-  .hero-image {
-    width: 100%;
-    border-radius: 3vw;
+    order: 3;
   }
 
   /* ── OUR ADVENTURE ── */
@@ -1136,43 +1153,63 @@ a {
     font-size: 5vw;
   }
 
-  /* ── SEE OTHERS ── */
+  /* ── SEE OTHERS — horizontal slider ── */
   .see-others {
     padding: 8vw 5vw;
     gap: 5vw;
+    /* allow the slider to bleed to the right edge */
+    overflow: hidden;
   }
 
   .see-others-title {
     font-size: 6vw;
   }
 
+  /* Convert grid to a horizontal scroll-snap slider */
   .see-others-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 4vw 3vw;
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 4vw;
+    /* pull the slider to the full section width */
+    padding-bottom: 3vw;
+    /* hide the scrollbar */
+    scrollbar-width: none;
   }
 
+  .see-others-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Each card: fixed width so you can feel the slide */
   .so-card {
-    border-radius: 2vw;
+    flex: 0 0 78vw;
+    scroll-snap-align: start;
+    border-radius: 3vw;
   }
 
   .so-card-img {
-    height: 28vw;
+    height: 45vw;
   }
 
+  /* Keep only the title — hide description */
   .so-card-body {
-    height: auto;
-    padding: 3vw;
-    gap: 2vw;
+    height: 10vh;
+    padding: 3vw 3vw 4vw;
+    gap: 0;
   }
 
   .so-card-body h3 {
-    font-size: 3.5vw;
+    font-size: 4vw;
   }
 
   .so-card-body p {
-    font-size: 3vw;
+    display: none;
   }
 
+  /* Hide the empty spacer slot */
   .so-card-empty {
     display: none;
   }

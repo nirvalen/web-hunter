@@ -84,9 +84,11 @@ a {
 .reveal.reveal-left {
   transform: translateX(-50px);
 }
+
 .reveal.reveal-right {
   transform: translateX(50px);
 }
+
 .reveal.reveal-scale {
   transform: scale(0.92);
 }
@@ -99,18 +101,23 @@ a {
 .reveal-delay-1 {
   transition-delay: 0.1s;
 }
+
 .reveal-delay-2 {
   transition-delay: 0.2s;
 }
+
 .reveal-delay-3 {
   transition-delay: 0.3s;
 }
+
 .reveal-delay-4 {
   transition-delay: 0.4s;
 }
+
 .reveal-delay-5 {
   transition-delay: 0.5s;
 }
+
 .reveal-delay-6 {
   transition-delay: 0.6s;
 }
@@ -190,11 +197,11 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 3.5vw;
+  padding: 4vw;
   gap: 2.5vw;
   position: relative;
   overflow: hidden;
-  height: 80vh;
+
 }
 
 /* ---- LEFT SIDE ---- */
@@ -271,8 +278,7 @@ a {
 }
 
 /* ---- RIGHT SIDE ---- */
-.cooking-hero-right {
-}
+.cooking-hero-right {}
 
 .cooking-hero-right img {
   width: 55vw;
@@ -290,11 +296,9 @@ a {
   left: 0;
   width: 30%;
   height: 100%;
-  background: linear-gradient(
-    to right,
-    var(--color-bg-primary) 0%,
-    transparent 100%
-  );
+  background: linear-gradient(to right,
+      var(--color-bg-primary) 0%,
+      transparent 100%);
 }
 
 /* ========================================
@@ -384,7 +388,6 @@ a {
 
 .carousel-item img {
   width: 100%;
-  height: 57.7vh;
   object-fit: cover;
   border-radius: 1.3vw;
   display: block;
@@ -399,7 +402,7 @@ a {
 
 .carousel-dot {
   width: 1vw;
-  height: 2vh;
+  height: 1vh;
   border-radius: 50%;
   background: var(--color-text-muted);
   opacity: 0.4;
@@ -464,7 +467,7 @@ a {
   color: var(--color-text-main);
   background-color: var(--color-bg-secondary);
   width: 28.6vw;
-  height: 7vh;
+
 }
 
 .card-label::before {
@@ -502,6 +505,7 @@ a {
 .card-label strong {
   font-weight: 700;
 }
+
 .card-label em {
   font-style: italic;
 }
@@ -555,7 +559,7 @@ a {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 3vw 2.2vh;
+  gap: 2.2vh 1.25vw;
 }
 
 /* Each card: exactly 5 per row */

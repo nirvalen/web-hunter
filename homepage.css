@@ -188,7 +188,6 @@ a {
    HERO SECTION
 ======================================== */
 .hero {
-  height: 60vh;
   margin: 5vw;
   display: flex;
   align-items: center;
@@ -443,7 +442,7 @@ a {
    COOKING SECTION
 ======================================== */
 
-.enterpreneur {
+.entrepreneur {
   position: relative;
   height: 100vh;
 
@@ -453,7 +452,7 @@ a {
   background-repeat: no-repeat;
 }
 
-.enterpreneur::before {
+.entrepreneur::before {
   content: "";
 
   position: absolute;
@@ -470,7 +469,7 @@ a {
       rgba(12, 16, 22, 0) 100%);
 }
 
-.enterpreneur-content {
+.entrepreneur-content {
   position: absolute;
   right: 0;
   width: 55vw;
@@ -482,7 +481,7 @@ a {
   background-color: rgba(12, 16, 22, 0.7);
 }
 
-.enterpreneur-title {
+.entrepreneur-title {
   font-family: var(--font-subtitle);
   font-size: 3.75vw;
   font-weight: 900;
@@ -491,7 +490,7 @@ a {
   line-height: 1.5;
 }
 
-.enterpreneur-subtitle {
+.entrepreneur-subtitle {
   font-family: var(--font-title);
   font-size: 1.25vw;
   font-weight: 700;
@@ -502,12 +501,12 @@ a {
   margin-bottom: 2vh;
 }
 
-.enterpreneur-content .accent-green {
+.entrepreneur-content .accent-green {
   color: #40d352;
   font-size: 3.75vw;
 }
 
-.enterpreneur-description {
+.entrepreneur-description {
   font-family: var(--font-body);
   font-size: 1vw;
   color: var(--color-text-main);
@@ -515,12 +514,13 @@ a {
   text-align: justify;
 }
 
-.enterpreneur-content span {
+.entrepreneur-content span {
   font-weight: 900;
 }
 
-.enterpreneur-content ul {
+.entrepreneur-content ul {
   padding-left: 1vw;
+  font-size: 1vw;
 }
 
 /* ========================================
