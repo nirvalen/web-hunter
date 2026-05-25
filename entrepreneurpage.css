@@ -341,27 +341,25 @@ a {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0 1vw;
+  padding: 0 1.2vw;
   display: flex;
   align-items: center;
-  opacity: 0.6;
-  transition: opacity 0.2s ease;
+  color: var(--color-text-muted);
+  transition: color 0.3s ease, transform 0.25s ease;
   z-index: 10;
 }
 
 .carousel-arrow:hover {
-  opacity: 1;
+  color: var(--color-text-hover);
+  /* golden yellow */
+  transform: scale(1.15);
 }
 
-.carousel-arrow img {
-  width: 1.5vw;
-  height: auto;
+.carousel-arrow svg {
+  width: 1.8vw;
+  height: 1.8vw;
   display: block;
-}
-
-/* Flip left arrow to point left */
-.carousel-arrow-right img {
-  transform: scaleX(-1);
+  /* stroke inherits from currentColor automatically */
 }
 
 /* Track container – clips overflow */
@@ -388,6 +386,7 @@ a {
 
 .carousel-item img {
   width: 100%;
+  height: 30vw;        /* uniform card height on desktop */
   object-fit: cover;
   border-radius: 1.3vw;
   display: block;
@@ -697,4 +696,305 @@ a {
   flex-direction: column;
   gap: 1.4vw;
   padding: 0.5vw 0;
+}
+
+/* ========================================
+   MOBILE RESPONSIVE — max-width: 480px
+======================================== */
+@media (max-width: 480px) {
+
+  /* ── NAVBAR ── */
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 3vw 4vw;
+    justify-content: flex-start;
+  }
+
+  .navbar-logo {
+    position: static;
+    margin-left: 0;
+    transform: none;
+    overflow: hidden;
+    max-height: 80px;
+    margin-bottom: 2vw;
+    transition: max-height 0.35s ease,
+      margin-bottom 0.35s ease,
+      opacity 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  .navbar-logo.hidden {
+    opacity: 0;
+    max-height: 0;
+    margin-bottom: 0;
+    pointer-events: none;
+    transform: translateY(-6px);
+  }
+
+  .navbar-logo img {
+    width: 32vw;
+  }
+
+  .navbar-links {
+    align-self: center;
+    gap: 5vw;
+    padding: 2.5vw 5vw;
+    height: auto;
+    border-radius: 3vw;
+  }
+
+  .navbar-links a {
+    font-size: 3.5vw;
+  }
+
+  /* ── HERO ── */
+  .cooking-hero {
+    flex-direction: column;
+    padding: 6vw 5vw;
+    gap: 5vw;
+  }
+
+  /* Cookies photo moves to the top */
+  .cooking-hero-right {
+    order: 1;
+    width: 100%;
+  }
+
+  .cooking-hero-right img {
+    width: 100%;
+    border-radius: 3vw;
+  }
+
+  /* Text block comes below */
+  .cooking-hero-left {
+    order: 2;
+    width: 100%;
+    gap: 4vw;
+  }
+
+  .cooking-hero-subtitle {
+    font-size: 3.5vw;
+    padding-left: 0;
+  }
+
+  .cooking-hero-stack img {
+    width: 22vw;
+  }
+
+  .cooking-hero-title-text {
+    padding-left: 7vw;
+  }
+
+  .cooking-hero-title-text h1 {
+    font-size: 10vw;
+  }
+
+  .cooking-hero-description {
+    font-size: 3.5vw;
+    max-width: 100%;
+    padding-left: 0;
+  }
+
+  /* ── OUR PRODUCT — mobile carousel ── */
+  .our-product {
+    padding: 8vw 5vw;
+    gap: 5vw;
+  }
+
+  .our-product-title {
+    font-size: 6vw;
+  }
+
+  /* Hide arrow buttons — navigation via swipe + auto-scroll */
+  .carousel-arrow {
+    display: flex;
+    /* keep visible on mobile */
+    color: var(--color-text-muted);
+    padding: 0 2vw;
+  }
+
+  .carousel-arrow svg {
+    width: 6vw;
+    height: 6vw;
+  }
+
+  /* Track gap tightened for mobile proportions */
+  .carousel-track {
+    gap: 4vw;
+    /* allow center-scaled item to breathe vertically */
+    padding: 4vw 0;
+  }
+
+  /* Each item narrower so 3 fit comfortably */
+  .carousel-item {
+    flex: 0 0 26vw;
+    width: 26vw;
+  }
+
+  .carousel-item img {
+    height: auto;        /* reset desktop fixed height — natural ratio on mobile */
+    border-radius: 3vw;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  /* Center item (always nth-child 2 after DOM rotation) scales up */
+  .carousel-item:nth-child(2) img {
+    transform: scale(1.18);
+    box-shadow: 0 3vw 8vw rgba(0, 0, 0, 0.55);
+  }
+
+  /* Larger, easier-to-tap dots */
+  .carousel-dots {
+    gap: 3vw;
+    margin-top: 3vw;
+  }
+
+  .carousel-dot {
+    width: 3vw;
+    height: 3vw;
+  }
+
+  /* ── OUR ACTIVITIES — vertical stack ── */
+  .activities {
+    padding: 8vw 5vw;
+    gap: 5vw;
+  }
+
+  .activities-title {
+    font-size: 6vw;
+  }
+
+  .activities-cards {
+    flex-direction: column;
+    gap: 6vw;
+  }
+
+  .activities-card {
+    gap: 4vw;
+  }
+
+  /* Label stretches full width */
+  .card-label {
+    width: 100%;
+    height: auto;
+    padding: 3vw 4vw;
+    font-size: 4vw;
+    border-radius: 3vw;
+  }
+
+  .card-label::before {
+    border-radius: 3vw;
+    padding: 0.5vw;
+  }
+
+  /* In entrepreneurpage.html the img itself has .card-photo class */
+  .card-photo {
+    width: 100%;
+    height: 50vh;
+    object-fit: cover;
+    border-radius: 3vw;
+  }
+
+  /* ── THE MAKER — 2-per-row grid ── */
+  .the-maker {
+    padding: 8vw 5vw;
+    gap: 5vw;
+  }
+
+  .the-maker-eyebrow {
+    font-size: 4.5vw;
+  }
+
+  .the-maker-title {
+    font-size: 9vw;
+  }
+
+  .the-maker-grid {
+    gap: 6vw 4vw;
+  }
+
+  .maker-card {
+    flex: 0 0 calc(50% - 2vw);
+    width: calc(50% - 2vw);
+  }
+
+  .maker-card-img img {
+    width: 100%;
+    height: 50vw;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .maker-name {
+    font-size: 4vw;
+  }
+
+  .maker-role {
+    font-size: 3.5vw;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    padding: 10vw 8vw 12vw;
+    gap: 4vw;
+  }
+
+  .footer-logo {
+    width: 42vw;
+  }
+
+  .footer-inner {
+    width: 100%;
+    align-items: center;
+    gap: 5vw;
+  }
+
+  .footer-inner h2 {
+    font-size: 10vw;
+    text-align: center;
+    line-height: 1.15;
+  }
+
+  .footer-inner-content {
+    flex-direction: column;
+    gap: 6vw;
+    width: 100%;
+  }
+
+  .footer-visitus,
+  .footer-contact {
+    gap: 2.5vw;
+  }
+
+  .footer-inner-content h4 {
+    width: 28vw;
+    height: 10vw;
+    font-size: 4.5vw;
+    border-radius: 3vw;
+  }
+
+  .footer-inner-content p {
+    font-size: 3.5vw;
+    line-height: 1.6;
+  }
+
+  .contact-sosmed {
+    gap: 3vw;
+    align-items: center;
+  }
+
+  .contact-sosmed img {
+    width: 8vw;
+    height: 8vw;
+  }
+
+  .contact {
+    gap: 2vw;
+    padding: 1vw 0;
+  }
+
 }

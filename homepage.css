@@ -209,6 +209,9 @@ a {
   line-height: 1.32;
   color: var(--color-text-main);
   margin-bottom: 1.5vw;
+  position: relative;
+
+
 }
 
 .hero-title .accent-red {
@@ -446,7 +449,7 @@ a {
   position: relative;
   height: 100vh;
 
-  background-image: url("HomeAssets/FotoBersama\(Cooking\).png");
+  background-image: url("HomeAssets/entrepreneur1.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -710,4 +713,440 @@ a {
   flex-direction: column;
   gap: 1.4vw;
   padding: 0.5vw 0;
+}
+
+/* ========================================
+   MOBILE RESPONSIVE — max-width: 480px
+======================================== */
+@media (max-width: 480px) {
+
+  /* ── NAVBAR ── */
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 3vw 4vw;
+    justify-content: flex-start;
+  }
+
+  .navbar-logo {
+    position: static;
+    margin-left: 0;
+    transform: none;
+    overflow: hidden;
+    max-height: 80px;
+    margin-bottom: 2vw;
+    transition:
+      max-height 0.35s ease,
+      margin-bottom 0.35s ease,
+      opacity 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  .navbar-logo.hidden {
+    opacity: 0;
+    max-height: 0;
+    margin-bottom: 0;
+    pointer-events: none;
+    transform: translateY(-6px);
+  }
+
+  .navbar-logo img {
+    width: 32vw;
+  }
+
+  .navbar-links {
+    align-self: center;
+    gap: 5vw;
+    padding: 2.5vw 5vw;
+    height: auto;
+    border-radius: 3vw;
+  }
+
+  .navbar-links a {
+    font-size: 3.5vw;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    flex-direction: column;
+    margin: 4vw 5vw;
+    gap: 5vw;
+    overflow: visible;
+  }
+
+  /*
+   * display:contents makes .hero-content transparent to flex layout,
+   * so .hero-title and .hero-description become direct flex children of .hero.
+   * We can then use `order` to slot the carousel between title and description.
+   */
+  .hero-content {
+    display: contents;
+  }
+
+  .hero-title {
+    order: 1;
+    font-size: 12vw;
+    margin-bottom: 2vw;
+    position: relative;
+    right: 10vw;
+  }
+
+  /* Carousel sits between title (order 1) and description (order 3) */
+  .hero-carousel-wrapper {
+    order: 2;
+    position: relative;
+    width: 90vw;
+    height: 55vw;
+    flex: none;
+    margin-bottom: 10vw;
+    /* room for subtitle + gap before description */
+  }
+
+  .hero-description {
+    order: 3;
+    font-size: 3.5vw;
+    max-width: 100%;
+  }
+
+  /* Keep carousel-container absolutely positioned within the wrapper */
+  .carousel-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .carousel-container .carousel-item {
+    width: 100%;
+    height: 100%;
+  }
+
+  .carousel-container .carousel-item img {
+    border-radius: 3vw;
+  }
+
+  /* Subtitle sits just below the image with breathing room */
+  .carousel-subtitle {
+    position: absolute;
+    bottom: -10vw;
+    left: 0;
+  }
+
+  .carousel-subtitle p {
+    font-size: 3.5vw;
+  }
+
+  /* ── ABOUT ── */
+  .about {
+    height: 80vh;
+    min-height: 380px;
+  }
+
+  .about-content {
+    width: 90vw;
+    padding: 5vw;
+  }
+
+  .about-title {
+    font-size: 14vw;
+    margin-bottom: 2vh;
+  }
+
+  .about-subtitle {
+    font-size: 4vw;
+    margin-bottom: 2vh;
+  }
+
+  .about-description {
+    font-size: 3.5vw;
+  }
+
+  /* ── CORE VALUES — infinite left-to-right marquee ── */
+  .core-values {
+    padding: 8vw 0 8vw;
+    overflow: hidden;
+    /* clip the overflowing marquee track */
+  }
+
+  .core-values-content {
+    flex-direction: column;
+    gap: 6vw;
+    margin: 0;
+    width: 100%;
+    align-items: center;
+    /* center both the badge and the marquee */
+  }
+
+  /* Keep the full badge centered — text + logo */
+  .core-values-center {
+    align-items: center;
+    padding: 0 5vw;
+    text-align: center;
+    width: 100%;
+  }
+
+  .core-values-center img {
+    width: 55vw;
+    /* scale logo to fit mobile */
+    margin-top: 4vw;
+  }
+
+  .core-values-center p {
+    font-size: 3.5vw;
+  }
+
+  .core-values-center h2 {
+    font-size: 8vw;
+  }
+
+  /* Values track becomes the marquee strip */
+  .values {
+    flex-direction: row;
+    width: max-content;
+    /* shrinks to fit all items side-by-side */
+    gap: 5vw;
+    justify-content: flex-start;
+    padding: 2vw 5vw;
+    /* JS will duplicate items; animation moves -50% → 0 for left-to-right */
+    animation: values-marquee 15s linear infinite;
+  }
+
+  /* Pause on hover so users can read */
+  .values:hover {
+    animation-play-state: paused;
+  }
+
+  /* Each value card */
+  .value-item {
+    flex: 0 0 72vw;
+    width: 72vw;
+    background: var(--color-bg-secondary);
+    border-radius: 3vw;
+    padding: 5vw;
+    align-items: flex-start;
+    gap: 3vw;
+  }
+
+  /*
+   * The reveal / reveal-left classes set opacity:0 and a transform.
+   * Inside a CSS marquee the IntersectionObserver never fires for most items,
+   * so they stay invisible. Force them fully visible inside the marquee track.
+   */
+  .values .reveal,
+  .values .reveal-left,
+  .values .reveal-right {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .value-icon {
+    gap: 3vw;
+  }
+
+  .value-icon img {
+    width: 10vw;
+  }
+
+  .value-item h3 {
+    font-size: 5vw;
+    padding-top: 2vw;
+    margin-bottom: 2vw;
+  }
+
+  .value-content p {
+    font-size: 3.5vw;
+    max-width: 100%;
+    line-height: 1.6;
+  }
+
+  /*
+   * Use the exact pixel distance of one item set so the loop is perfectly seamless.
+   * One set = 3 items × (72vw width + 5vw gap) = 231vw.
+   * At translateX(0): originals are visible.
+   * At translateX(-231vw): clones occupy the exact same viewport positions.
+   * The instantaneous reset jump is imperceptible.
+   */
+  @keyframes values-marquee {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-231vw);
+    }
+  }
+
+  /* ── ENTREPRENEUR ── */
+  /*
+   * Full-section background approach:
+   * The section is a flex column; content sits at the bottom via margin-top:auto,
+   * leaving the photo visible in the upper portion through the transparent overlay.
+   */
+  .entrepreneur {
+    height: auto;
+    min-height: 100svh;
+    background-position: center center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  /* Overlay darkens only the bottom so the photo is clear at the top */
+  .entrepreneur::before {
+    background: linear-gradient(to top,
+        rgba(12, 16, 22, 0.97) 20%,
+        rgba(12, 16, 22, 0.55) 60%,
+        rgba(12, 16, 22, 0.15) 100%);
+  }
+
+  /* Content panel: z-index above the overlay, padded from the edges */
+  .entrepreneur-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: auto;
+    padding: 8vw 5vw 12vw;
+    background: transparent;
+  }
+
+  .entrepreneur-title {
+    font-size: 12vw;
+    line-height: 1.2;
+    margin-bottom: 3vw;
+  }
+
+  .entrepreneur-content .accent-green {
+    font-size: 12vw;
+  }
+
+  .entrepreneur-subtitle {
+    font-size: 4vw;
+
+  }
+
+  .entrepreneur-description {
+    font-size: 3.5vw;
+  }
+
+  .entrepreneur-content ul {
+    padding-left: 5vw;
+    font-size: 3.5vw;
+  }
+
+  /* ── FOUNDER ── */
+  .founder {
+    flex-direction: column;
+    padding: 8vw 5vw;
+    gap: 6vw;
+  }
+
+  /* Text content (greeting + title + description) comes FIRST */
+  .founder-content {
+    order: 1;
+    max-width: 100%;
+  }
+
+  /* Photo + name tag comes SECOND (below the text) */
+  .founder-image-wrapper {
+    order: 2;
+  }
+
+  .founder-image-frame img {
+    width: 100%;
+    border-radius: 2vw;
+  }
+
+  .founder-greeting {
+    font-size: 4.5vw;
+  }
+
+  .founder-title {
+    font-size: 10vw;
+    margin-bottom: 4vw;
+  }
+
+  .founder-description {
+    font-size: 3.5vw;
+  }
+
+  .founder-name-tag h3 {
+    font-size: 4vw;
+  }
+
+  .founder-name-tag p {
+    font-size: 3.5vw;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    padding: 10vw 8vw 12vw;
+    gap: 4vw;
+  }
+
+  .footer-logo {
+    width: 42vw;
+  }
+
+  .footer-inner {
+    width: 100%;
+    align-items: center;
+    gap: 5vw;
+  }
+
+  .footer-inner h2 {
+    font-size: 10vw;
+    text-align: center;
+    line-height: 1.15;
+  }
+
+  .footer-inner-content {
+    flex-direction: column;
+    gap: 6vw;
+    width: 100%;
+  }
+
+  .footer-visitus,
+  .footer-contact {
+    gap: 2.5vw;
+  }
+
+  .footer-inner-content h4 {
+    width: 28vw;
+    height: 10vw;
+    font-size: 4.5vw;
+    border-radius: 3vw;
+  }
+
+  .footer-inner-content p {
+    font-size: 3.5vw;
+    line-height: 1.6;
+  }
+
+  .contact-sosmed {
+    gap: 3vw;
+    align-items: center;
+  }
+
+  .contact-sosmed img {
+    width: 8vw;
+    height: 8vw;
+  }
+
+  .contact {
+    gap: 2vw;
+    padding: 1vw 0;
+  }
+
+  .contact a:hover {
+    color: rgb(90, 221, 29);
+    text-decoration: underline;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
 }

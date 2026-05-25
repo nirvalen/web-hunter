@@ -70,3 +70,15 @@
 
       }, 5000);
     }
+
+// ── Mobile Core Values Marquee (≤ 480px) ─────────────────────────────────
+// Duplicate the 3 value cards so the CSS translateX(-50%→0) loop is seamless
+if (window.innerWidth <= 480) {
+  const valuesTrack = document.querySelector('.values');
+  if (valuesTrack) {
+    Array.from(valuesTrack.children).forEach(child => {
+      valuesTrack.appendChild(child.cloneNode(true));
+    });
+  }
+}
+// ── END Mobile Core Values Marquee ───────────────────────────────────────
