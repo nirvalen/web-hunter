@@ -228,9 +228,9 @@ a {
 
 .hero-description {
   font-family: var(--font-body);
-  font-size: 0.9vw;
+  font-size: 1vw;
   line-height: 1.7;
-  color: var(--color-text-muted);
+  color: var(--color-text-main);
   text-align: justify;
 }
 
@@ -240,9 +240,9 @@ a {
 
 .hero-description-list {
   padding-left: 1vw;
-  color: var(--color-text-muted);
+  color: var(--color-text-main);
   margin-top: -1.2vw;
-  font-size: 0.9vw;
+  font-size: 1vw;
 }
 
 
