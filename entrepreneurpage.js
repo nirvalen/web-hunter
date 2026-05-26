@@ -1,16 +1,16 @@
 
 // ── CAROUSEL ──────────────────────────────────────────────────────────────
-const track    = document.getElementById("carouselTrack");
+const track = document.getElementById("carouselTrack");
 const dotsCont = document.getElementById("carouselDots");
-const arrowLeft  = document.getElementById("arrowLeft");
+const arrowLeft = document.getElementById("arrowLeft");
 const arrowRight = document.getElementById("arrowRight");
 
 // 1. Read all items from HTML into a data array, then clear the track
-const rawItems   = Array.from(track.querySelectorAll(".carousel-item"));
+const rawItems = Array.from(track.querySelectorAll(".carousel-item"));
 const slidesData = rawItems.map(el => el.innerHTML.trim()); // store inner HTML
 const TOTAL = slidesData.length;  // works for any count (3, 5, …)
 
-let centerIdx   = 0;  // which data index is currently in the CENTER slot
+let centerIdx = 0;  // which data index is currently in the CENTER slot
 let isAnimating = false;
 
 // 1a. Preload all images so the browser caches them before they slide in
@@ -58,18 +58,18 @@ function updateDots() {
 
 // 6. Slide one step in a direction; update centerIdx and swap slot content
 function updateCarousel(direction) {
-  const firstItem  = track.firstElementChild;
+  const firstItem = track.firstElementChild;
   const SLIDE_DIST = firstItem.getBoundingClientRect().width +
-                     parseFloat(getComputedStyle(track).gap);
+    parseFloat(getComputedStyle(track).gap);
 
   const sign = direction === "right" ? -1 : 1;
   track.style.transition = "transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)";
-  track.style.transform  = `translateX(${sign * SLIDE_DIST}px)`;
+  track.style.transform = `translateX(${sign * SLIDE_DIST}px)`;
 
   track.addEventListener("transitionend", function onEnd() {
     track.removeEventListener("transitionend", onEnd);
     track.style.transition = "none";
-    track.style.transform  = "translateX(0)";
+    track.style.transform = "translateX(0)";
 
     if (direction === "right") {
       // Advance center forward
@@ -128,42 +128,42 @@ updateDots();
 // ── END CAROUSEL ──────────────────────────────────────────────────────────
 
 
-      const reveals = document.querySelectorAll(".reveal");
+const reveals = document.querySelectorAll(".reveal");
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("visible");
-            }
-          });
-        },
-        {
-          threshold: 0.12,
-          rootMargin: "0px 0px -40px 0px",
-        },
-      );
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      }
+    });
+  },
+  {
+    threshold: 0.12,
+    rootMargin: "0px 0px -40px 0px",
+  },
+);
 
-      reveals.forEach((el) => observer.observe(el));
+reveals.forEach((el) => observer.observe(el));
 
-      // Hero elements animate on load
-      window.addEventListener("load", () => {
-        document.querySelectorAll(".cooking-hero .reveal").forEach((el) => {
-          el.classList.add("visible");
-        });
-      });
+// Hero elements animate on load
+window.addEventListener("load", () => {
+  document.querySelectorAll(".cooking-hero .reveal").forEach((el) => {
+    el.classList.add("visible");
+  });
+});
 
-      // Navbar: hide logo when scrolled, show when at top
-      const navbarLogo = document.getElementById("navbar-logo");
-      const SCROLL_THRESHOLD = 10;
+// Navbar: hide logo when scrolled, show when at top
+const navbarLogo = document.getElementById("navbar-logo");
+const SCROLL_THRESHOLD = 100;
 
-      window.addEventListener("scroll", () => {
-        if (window.scrollY > SCROLL_THRESHOLD) {
-          navbarLogo.classList.add("hidden");
-        } else {
-          navbarLogo.classList.remove("hidden");
-        }
-      });
+window.addEventListener("scroll", () => {
+  if (window.scrollY > SCROLL_THRESHOLD) {
+    navbarLogo.classList.add("hidden");
+  } else {
+    navbarLogo.classList.remove("hidden");
+  }
+});
 
 // ── Mobile Carousel Enhancements (≤ 480px) ───────────────────────────────
 if (window.innerWidth <= 480) {

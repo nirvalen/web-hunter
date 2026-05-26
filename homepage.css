@@ -181,6 +181,7 @@ a {
   color: var(--color-text-hover);
 }
 
+
 /* ========================================
    HERO SECTION
 ======================================== */
@@ -367,18 +368,51 @@ a {
   flex-direction: column;
 }
 
-.values {
+/* ---- Values Carousel Wrapper ---- */
+.values-carousel-wrapper {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 80vw;
+  align-items: stretch;
 }
 
+/* Arrow buttons (hidden on desktop) */
+.values-arrow {
+  display: none;
+}
+
+/* Track container – clips overflow on mobile but visible on desktop */
+.values-track-container {
+  width: 100%;
+  overflow: visible;
+}
+
+/* Track – flex row showing all 3 items side-by-side */
+.values-track {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  gap: 0;
+}
+
+/* Each value card */
 .value-item {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   position: relative;
+  background: none;
+  border-radius: 0;
+  padding: 0;
+  width: auto;
+  flex: 0 1 auto;
+}
+
+/* Center item is NOT scaled on desktop */
+.values-track .value-item:nth-child(2) {
+  transform: none;
 }
 
 .value-icon {
@@ -412,8 +446,9 @@ a {
   text-align: justify;
 }
 
-.values-right .value-content p {
-  margin-left: auto;
+/* ---- Dots (hidden on desktop) ---- */
+.values-dots {
+  display: none;
 }
 
 /* Center logo badge */
@@ -706,7 +741,7 @@ a {
   flex-direction: row;
   gap: 1vw;
   font-size: 1vw;
-  text-align: justify;
+  text-align: left;
 }
 
 .contact-sosmed img {
@@ -722,19 +757,6 @@ a {
 
 }
 
-.contact a:hover {
-  color: rgb(90, 221, 29);
-  text-decoration: underline;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.footer-visitus .reveal a:hover {
-  color: rgb(90, 221, 29);
-  text-decoration: underline;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
 
 /* ========================================
    MOBILE RESPONSIVE — max-width: 480px
@@ -742,43 +764,50 @@ a {
 @media (max-width: 480px) {
 
   /* ── NAVBAR ── */
+  /*
+   * Column layout: logo sits top-left naturally (position:static),
+   * links are centered in the row below.
+   * The full-width bar background is inherited from the desktop .navbar rule.
+   */
   .navbar {
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding: 0 4vw;
-    height: 14vw;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 3vw 4vw;
+    justify-content: flex-start;
+    height: auto;
   }
 
-  /* Logo reverts to absolute-left so the JS opacity/translateX hide still works */
   .navbar-logo {
-    position: absolute;
-    left: 4vw;
+    position: static;
     margin-left: 0;
-    overflow: visible;
-    max-height: none;
-    margin-bottom: 0;
-    transform: translateX(0);
+    transform: none;
+    overflow: hidden;
+    max-height: 80px;
+    margin-bottom: 2vw;
     transition:
+      max-height 0.35s ease,
+      margin-bottom 0.35s ease,
       opacity 0.3s ease,
       transform 0.3s ease;
   }
 
   .navbar-logo.hidden {
     opacity: 0;
-    max-height: none;
+    max-height: 0;
+    margin-bottom: 0;
     pointer-events: none;
-    transform: translateX(-16px);
+    transform: translateY(-6px);
   }
 
   .navbar-logo img {
-    width: 24vw;
+    width: 32vw;
   }
 
+  /* Links centered in the column, no pill shape */
   .navbar-links {
-    align-self: auto;
+    align-self: center;
     gap: 5vw;
-    padding: 0 3vw;
+    padding: 2.5vw 5vw;
     height: auto;
     border-radius: 0;
   }
@@ -860,34 +889,60 @@ a {
 
   /* ── ABOUT ── */
   .about {
-    height: 80vh;
-    min-height: 380px;
+    height: auto;
+    min-height: 100svh;
+    background-position: center center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .about::before {
+    background: 
+      linear-gradient(to top,
+        rgba(12, 16, 22, 0.97) 20%,
+        rgba(12, 16, 22, 0.55) 60%,
+        rgba(12, 16, 22, 0.15) 100%),
+      linear-gradient(to bottom,
+        rgba(12, 16, 22, 0.9) 0%,
+        rgba(12, 16, 22, 0.3) 25%,
+        rgba(12, 16, 22, 0) 50%);
   }
 
   .about-content {
-    width: 90vw;
-    padding: 5vw;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: auto;
+    padding: 8vw 5vw 12vw;
+    background: transparent;
   }
 
   .about-title {
     font-size: 14vw;
-    margin-bottom: 2vh;
+    margin-bottom: 3vw;
   }
 
   .about-subtitle {
     font-size: 4vw;
-    margin-bottom: 2vh;
+    margin-bottom: 3vw;
   }
 
   .about-description {
     font-size: 3.5vw;
+    text-align: left;
+    width: fit-content;
   }
 
-  /* ── CORE VALUES — infinite left-to-right marquee ── */
+  .about-content ul {
+    padding-left: 5vw;
+    font-size: 3.5vw;
+  }
+
+  /* ── CORE VALUES — slider (≤480px) ── */
   .core-values {
     padding: 8vw 0 8vw;
     overflow: hidden;
-    /* clip the overflowing marquee track */
   }
 
   .core-values-content {
@@ -896,10 +951,8 @@ a {
     margin: 0;
     width: 100%;
     align-items: center;
-    /* center both the badge and the marquee */
   }
 
-  /* Keep the full badge centered — text + logo */
   .core-values-center {
     align-items: center;
     padding: 0 5vw;
@@ -909,7 +962,6 @@ a {
 
   .core-values-center img {
     width: 55vw;
-    /* scale logo to fit mobile */
     margin-top: 4vw;
   }
 
@@ -921,48 +973,81 @@ a {
     font-size: 8vw;
   }
 
-  /* Values track becomes the marquee strip */
-  .values {
+  /* Carousel wrapper spans full width on mobile */
+  .values-carousel-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    position: relative;
+    width: 100%;
+    padding: 0;
     flex-direction: row;
-    width: max-content;
-    /* shrinks to fit all items side-by-side */
-    gap: 5vw;
-    justify-content: flex-start;
-    padding: 2vw 5vw;
-    /* JS will duplicate items; animation moves -50% → 0 for left-to-right */
-    animation: values-marquee 15s linear infinite;
+    justify-content: stretch;
   }
 
-  /* Pause on hover so users can read */
-  .values:hover {
-    animation-play-state: paused;
+  .values-arrow {
+    display: flex;
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0 3vw;
+    align-items: center;
+    color: var(--color-text-muted);
+    transition: color 0.3s ease, transform 0.25s ease;
+    z-index: 10;
   }
 
-  /* Each value card */
+  .values-arrow:hover {
+    color: var(--color-text-hover);
+    transform: scale(1.15);
+  }
+
+  .values-arrow svg {
+    width: 6vw;
+    height: 6vw;
+    display: block;
+  }
+
+  .values-track-container {
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .values-track {
+    display: flex;
+    justify-content: center;
+    gap: 4vw;
+    padding: 4vw 0;
+    transition: none;
+    will-change: transform;
+    width: auto;
+  }
+
   .value-item {
-    flex: 0 0 72vw;
-    width: 72vw;
+    flex: 0 0 60vw;
+    width: 60vw;
+    display: flex;
+    flex-direction: column;
     background: var(--color-bg-secondary);
     border-radius: 3vw;
     padding: 5vw;
-    align-items: flex-start;
     gap: 3vw;
+    align-items: flex-start;
+    position: relative;
+    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /*
-   * The reveal / reveal-left classes set opacity:0 and a transform.
-   * Inside a CSS marquee the IntersectionObserver never fires for most items,
-   * so they stay invisible. Force them fully visible inside the marquee track.
-   */
-  .values .reveal,
-  .values .reveal-left,
-  .values .reveal-right {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
+  /* Center card scale on mobile */
+  .values-track .value-item:nth-child(2) {
+    transform: scale(1.06);
   }
 
   .value-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 3vw;
   }
 
@@ -971,32 +1056,44 @@ a {
   }
 
   .value-item h3 {
+    font-family: var(--font-title);
     font-size: 5vw;
+    font-weight: 700;
+    color: var(--color-text-main);
     padding-top: 2vw;
-    margin-bottom: 2vw;
+    margin-bottom: 1vw;
+    text-transform: uppercase;
   }
 
   .value-content p {
+    font-family: var(--font-body);
     font-size: 3.5vw;
-    max-width: 100%;
+    color: var(--color-text-main);
     line-height: 1.6;
+    max-width: 100%;
+    text-align: justify;
   }
 
-  /*
-   * Use the exact pixel distance of one item set so the loop is perfectly seamless.
-   * One set = 3 items × (72vw width + 5vw gap) = 231vw.
-   * At translateX(0): originals are visible.
-   * At translateX(-231vw): clones occupy the exact same viewport positions.
-   * The instantaneous reset jump is imperceptible.
-   */
-  @keyframes values-marquee {
-    from {
-      transform: translateX(0);
-    }
+  .values-dots {
+    display: flex;
+    justify-content: center;
+    gap: 3vw;
+    margin-top: 2vw;
+  }
 
-    to {
-      transform: translateX(-231vw);
-    }
+  .values-dot {
+    width: 3vw;
+    height: 3vw;
+    border-radius: 50%;
+    background: var(--color-text-muted);
+    opacity: 0.4;
+    transition: background 0.3s ease, opacity 0.3s ease;
+    cursor: default;
+  }
+
+  .values-dot.active {
+    background: var(--color-red);
+    opacity: 1;
   }
 
   /* ── ENTREPRENEUR ── */
@@ -1014,12 +1111,17 @@ a {
     justify-content: flex-end;
   }
 
-  /* Overlay darkens only the bottom so the photo is clear at the top */
+  /* Overlay darkens both bottom and top so the photo text is clear */
   .entrepreneur::before {
-    background: linear-gradient(to top,
+    background: 
+      linear-gradient(to top,
         rgba(12, 16, 22, 0.97) 20%,
         rgba(12, 16, 22, 0.55) 60%,
-        rgba(12, 16, 22, 0.15) 100%);
+        rgba(12, 16, 22, 0.15) 100%),
+      linear-gradient(to bottom,
+        rgba(12, 16, 22, 0.9) 0%,
+        rgba(12, 16, 22, 0.3) 25%,
+        rgba(12, 16, 22, 0) 50%);
   }
 
   /* Content panel: z-index above the overlay, padded from the edges */
@@ -1151,6 +1253,7 @@ a {
   .contact-sosmed {
     gap: 3vw;
     align-items: center;
+    font-size: 3.5vw;
   }
 
   .contact-sosmed img {

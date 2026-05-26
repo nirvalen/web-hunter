@@ -27,7 +27,7 @@ window.addEventListener("load", () => {
 
 // Navbar: hide logo when scrolled, show when at top
 const navbarLogo = document.getElementById("navbar-logo");
-const SCROLL_THRESHOLD = 10;
+const SCROLL_THRESHOLD = 100;
 
 window.addEventListener("scroll", () => {
   if (window.scrollY > SCROLL_THRESHOLD) {
@@ -72,86 +72,164 @@ if (carouselItem) {
 }
 
 
-// ── Mobile Core Values Marquee (≤ 480px) ─────────────────────────────────
-// JS-driven so the user can drag manually while auto-scroll still runs.
-if (window.innerWidth <= 480) {
-  const valuesTrack = document.querySelector('.values');
-  if (valuesTrack) {
+// ── Values Slider (Core Values section) ───────────────────────────────────
+const valuesTrackEl = document.getElementById('valuesTrack');
+const valuesDotsCont = document.getElementById('valuesDots');
+const valuesArrowLeft = document.getElementById('valuesArrowLeft');
+const valuesArrowRight = document.getElementById('valuesArrowRight');
 
-    // 1. Clone items to create a seamless double-set [A B C | A B C]
-    Array.from(valuesTrack.children).forEach(child => {
-      valuesTrack.appendChild(child.cloneNode(true));
+if (valuesTrackEl && valuesDotsCont && valuesArrowLeft && valuesArrowRight) {
+
+  // 1. Keep a backup of the original HTML content of the track and the original items
+  const originalHTML = valuesTrackEl.innerHTML;
+  const rawValues = Array.from(valuesTrackEl.querySelectorAll('.value-item'));
+  const valuesData = rawValues.map(el => el.innerHTML.trim());
+  const VALUES_TOTAL = valuesData.length;
+
+  let valuesCenterIdx = 0;
+  let valuesIsAnimating = false;
+  let valuesAutoTimer = null;
+  let isSliderActive = false;
+
+  function initSlider() {
+    if (isSliderActive) return;
+    isSliderActive = true;
+
+    // Generate dots
+    valuesDotsCont.innerHTML = '';
+    valuesData.forEach((_, i) => {
+      const dot = document.createElement('span');
+      dot.className = 'values-dot';
+      dot.dataset.index = i;
+      valuesDotsCont.appendChild(dot);
     });
 
-    // 2. Kill the CSS animation — we drive position entirely from JS
-    valuesTrack.style.animation = 'none';
+    valuesCenterIdx = 0;
+    initValuesTrack();
+    updateValuesDots();
 
-    // ── Constants ────────────────────────────────────────────────────────
-    const ITEM_VW = 72;   // matches .value-item { width: 72vw }
-    const GAP_VW = 5;    // matches .values { gap: 5vw }
-    const SET_VW = 3 * (ITEM_VW + GAP_VW); // 231 vw = one full set
-    const DURATION = 15000; // ms for one full set to scroll past (= CSS 15s)
-
-    // Convert vw to px at runtime (handles viewport correctly)
-    const vw = () => window.innerWidth / 100;
-    const setW = () => SET_VW * vw();       // one-set width in px
-    const speed = () => setW() / DURATION;   // px / ms
-
-    // ── State ────────────────────────────────────────────────────────────
-    let posX = 0;     // current track offset in px (always ≤ 0)
-    let lastTs = null;  // previous rAF timestamp
-    let dragging = false;
-    let touchX0 = 0;     // finger X at touchstart
-    let trackX0 = 0;     // posX at touchstart
-
-    // ── Helpers ──────────────────────────────────────────────────────────
-    function applyX() {
-      valuesTrack.style.transform = `translateX(${posX}px)`;
-    }
-
-    // Wrap posX into the window (-setW, 0] for seamless looping
-    function normalise() {
-      const w = setW();
-      posX = posX % w;          // result is in (-w, 0] for negative inputs
-      if (posX > 0) posX -= w;  // guard against tiny positive float errors
-    }
-
-    // ── rAF loop ─────────────────────────────────────────────────────────
-    function tick(ts) {
-      if (!dragging) {
-        if (lastTs !== null) {
-          posX -= speed() * (ts - lastTs);
-          normalise();
-          applyX();
-        }
-        lastTs = ts;
-      }
-      requestAnimationFrame(tick);
-    }
-
-    // ── Touch handlers ────────────────────────────────────────────────────
-    valuesTrack.addEventListener('touchstart', e => {
-      dragging = true;
-      touchX0 = e.touches[0].clientX;
-      trackX0 = posX;
-    }, { passive: true });
-
-    valuesTrack.addEventListener('touchmove', e => {
-      if (!dragging) return;
-      const dx = e.touches[0].clientX - touchX0;
-      posX = trackX0 + dx;
-      normalise();
-      applyX();
-    }, { passive: true });
-
-    valuesTrack.addEventListener('touchend', () => {
-      dragging = false;
-      normalise();
-      lastTs = null; // reset so first auto-scroll tick has no large delta jump
-    });
-
-    // ── Start ─────────────────────────────────────────────────────────────
-    requestAnimationFrame(tick);
+    // Start auto-scroll
+    resetValuesTimer();
   }
+
+  function destroySlider() {
+    if (!isSliderActive) return;
+    isSliderActive = false;
+
+    // Stop timer
+    if (valuesAutoTimer) {
+      clearInterval(valuesAutoTimer);
+      valuesAutoTimer = null;
+    }
+
+    // Revert track to original HTML structure and order
+    valuesTrackEl.innerHTML = originalHTML;
+    // Clear dots
+    valuesDotsCont.innerHTML = '';
+  }
+
+  function checkViewport() {
+    if (window.innerWidth <= 480) {
+      initSlider();
+    } else {
+      destroySlider();
+    }
+  }
+
+  // 3. Create a DOM slot for a given data index
+  function createValueSlot(dataIdx) {
+    const div = document.createElement('div');
+    div.className = 'value-item';
+    div.innerHTML = valuesData[dataIdx];
+    return div;
+  }
+
+  // 4. Keep exactly 3 slots: [prev, center, next]
+  function initValuesTrack() {
+    valuesTrackEl.innerHTML = '';
+    const prevIdx = (valuesCenterIdx - 1 + VALUES_TOTAL) % VALUES_TOTAL;
+    const nextIdx = (valuesCenterIdx + 1) % VALUES_TOTAL;
+    valuesTrackEl.appendChild(createValueSlot(prevIdx));
+    valuesTrackEl.appendChild(createValueSlot(valuesCenterIdx));
+    valuesTrackEl.appendChild(createValueSlot(nextIdx));
+  }
+
+  // 5. Update active dot
+  function updateValuesDots() {
+    const valuesDots = valuesDotsCont.querySelectorAll('.values-dot');
+    valuesDots.forEach((dot, i) => dot.classList.toggle('active', i === valuesCenterIdx));
+  }
+
+  // 6. Slide one step
+  function updateValuesCarousel(direction) {
+    if (!isSliderActive) return;
+    const firstItem = valuesTrackEl.firstElementChild;
+    if (!firstItem) return;
+    const SLIDE_DIST = firstItem.getBoundingClientRect().width +
+      parseFloat(getComputedStyle(valuesTrackEl).gap);
+
+    const sign = direction === 'right' ? -1 : 1;
+    valuesTrackEl.style.transition = 'transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)';
+    valuesTrackEl.style.transform = `translateX(${sign * SLIDE_DIST}px)`;
+
+    valuesTrackEl.addEventListener('transitionend', function onEnd() {
+      valuesTrackEl.removeEventListener('transitionend', onEnd);
+      valuesTrackEl.style.transition = 'none';
+      valuesTrackEl.style.transform = 'translateX(0)';
+
+      if (!isSliderActive) return;
+
+      if (direction === 'right') {
+        valuesCenterIdx = (valuesCenterIdx + 1) % VALUES_TOTAL;
+        const firstSlot = valuesTrackEl.firstElementChild;
+        valuesTrackEl.appendChild(firstSlot);
+        firstSlot.innerHTML = valuesData[(valuesCenterIdx + 1) % VALUES_TOTAL];
+      } else {
+        valuesCenterIdx = (valuesCenterIdx - 1 + VALUES_TOTAL) % VALUES_TOTAL;
+        const lastSlot = valuesTrackEl.lastElementChild;
+        valuesTrackEl.insertBefore(lastSlot, valuesTrackEl.firstElementChild);
+        lastSlot.innerHTML = valuesData[(valuesCenterIdx - 1 + VALUES_TOTAL) % VALUES_TOTAL];
+      }
+
+      updateValuesDots();
+      valuesIsAnimating = false;
+    }, { once: true });
+  }
+
+  const VALUES_AUTO_INTERVAL = 5000;
+
+  function valuesAutoStep() {
+    if (isSliderActive && !valuesIsAnimating) {
+      valuesIsAnimating = true;
+      updateValuesCarousel('right');
+    }
+  }
+
+  function resetValuesTimer() {
+    if (valuesAutoTimer) {
+      clearInterval(valuesAutoTimer);
+    }
+    valuesAutoTimer = setInterval(valuesAutoStep, VALUES_AUTO_INTERVAL);
+  }
+
+  valuesArrowRight.addEventListener('click', () => {
+    if (!isSliderActive || valuesIsAnimating) return;
+    valuesIsAnimating = true;
+    updateValuesCarousel('right');
+    resetValuesTimer();
+  });
+
+  valuesArrowLeft.addEventListener('click', () => {
+    if (!isSliderActive || valuesIsAnimating) return;
+    valuesIsAnimating = true;
+    updateValuesCarousel('left');
+    resetValuesTimer();
+  });
+
+  // Run on load
+  checkViewport();
+
+  // Listen for resize
+  window.addEventListener('resize', checkViewport);
 }
-// ── END Mobile Core Values Marquee ───────────────────────────────────────
+// ── END Values Slider ─────────────────────────────────────────────────────

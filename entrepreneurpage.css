@@ -47,6 +47,8 @@
   box-sizing: border-box;
 }
 
+
+
 html {
   scroll-behavior: smooth;
 }
@@ -681,6 +683,7 @@ a {
 .contact-sosmed {
   display: flex;
   flex-direction: row;
+  font-size: 1vw;
   gap: 1vw;
 }
 
@@ -717,41 +720,43 @@ a {
 
   /* ── NAVBAR ── */
   .navbar {
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding: 0 4vw;
-    height: 14vw;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 3vw 4vw;
+    justify-content: flex-start;
+    height: auto;
   }
 
   .navbar-logo {
-    position: absolute;
-    left: 4vw;
+    position: static;
     margin-left: 0;
-    overflow: visible;
-    max-height: none;
-    margin-bottom: 0;
-    transform: translateX(0);
+    transform: none;
+    overflow: hidden;
+    max-height: 80px;
+    margin-bottom: 2vw;
     transition:
+      max-height 0.35s ease,
+      margin-bottom 0.35s ease,
       opacity 0.3s ease,
       transform 0.3s ease;
   }
 
   .navbar-logo.hidden {
     opacity: 0;
-    max-height: none;
+    max-height: 0;
+    margin-bottom: 0;
     pointer-events: none;
-    transform: translateX(-16px);
+    transform: translateY(-6px);
   }
 
   .navbar-logo img {
-    width: 24vw;
+    width: 32vw;
   }
 
   .navbar-links {
-    align-self: auto;
+    align-self: center;
     gap: 5vw;
-    padding: 0 3vw;
+    padding: 2.5vw 5vw;
     height: auto;
     border-radius: 0;
   }
@@ -769,7 +774,7 @@ a {
 
   /* Cookies photo moves to the top */
   .cooking-hero-right {
-    order: 1;
+    order: 3;
     width: 100%;
   }
 
@@ -998,6 +1003,7 @@ a {
   .contact-sosmed {
     gap: 3vw;
     align-items: center;
+    font-size: 3.5vw;
   }
 
   .contact-sosmed img {

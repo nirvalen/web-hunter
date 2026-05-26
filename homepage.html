@@ -65,8 +65,8 @@
   ============================== -->
   <section class="about" id="about">
     <div class="about-content">
-      <h2 class="about-title">HUNTER<br>
-        <span class="accent-red">ACADEMY</span>
+      <h2 class="about-title">
+        <span class="accent-red">HUNTER</span>
       </h2>
       <h3 class="about-subtitle">- Division 1.0</h3>
       <p class="about-description">
@@ -98,48 +98,66 @@
         <img src="HomeAssets/Logo2.png" alt="Hunter Logo" class="reveal reveal-delay-3" />
       </div>
       <!-- Left Values -->
-      <div class="values">
-        <div class="value-item reveal reveal-left">
-          <div class="value-icon">
-            <img src="HomeAssets/HardworkingIcon.png" alt="Hardworking" />
-            <h3>Hardworking</h3>
-          </div>
-          <div class="value-content">
-            <p>
-              Setiap anggota (hunter) harus mampu memahami tugas yang diberikan dan mampu menyelesaikan dengan tuntas
-              secara detail dan Proaktif
-            </p>
+      <!-- Values Slider -->
+      <div class="values-carousel-wrapper">
+        <!-- Arrow Left -->
+        <button class="values-arrow values-arrow-left" id="valuesArrowLeft" aria-label="Previous value">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </button>
+
+        <!-- Track -->
+        <div class="values-track-container">
+          <div class="values-track" id="valuesTrack">
+            <div class="value-item">
+              <div class="value-icon">
+                <img src="HomeAssets/HardworkingIcon.png" alt="Hardworking" />
+                <h3>Hardworking</h3>
+              </div>
+              <div class="value-content">
+                <p>Setiap anggota (hunter) harus mampu memahami tugas yang diberikan dan mampu menyelesaikan dengan
+                  tuntas secara detail dan Proaktif</p>
+              </div>
+            </div>
+
+            <div class="value-item">
+              <div class="value-icon">
+                <img src="HomeAssets/DisciplineIcon.png" alt="Discipline" />
+                <h3>Discipline</h3>
+              </div>
+              <div class="value-content">
+                <p>Setiap anggota Hunter harus bisa tepat waktu dan apabila ada halangan segera mengkomunikasikan
+                  dengan yang bersangkutan agar tidak terjadi kesalahpahaman Selesaikan dengan tuntas secara detail dan
+                  Proaktif.</p>
+              </div>
+            </div>
+
+            <div class="value-item">
+              <div class="value-icon">
+                <img src="HomeAssets/CaringIcon.png" alt="Caring" />
+                <h3>Caring</h3>
+              </div>
+              <div class="value-content">
+                <p>Setiap anggota hunter yang hadir disini semuanya adalah anggota keluarga ke 2. diharapkan saling
+                  peduli dan memperhatikan satu dengan yang lainnya.</p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="value-item reveal reveal-left reveal-delay-2">
-          <div class="value-icon">
-            <img src="HomeAssets/DisciplineIcon.png" alt="Discipline" />
-            <h3>Discipline</h3>
-          </div>
-          <div class="value-content">
-            <p>
-              Setiap anggota Hunter harus bisa tepat waktu dan apabila ada halangan segera mengkomunikasikan dengan yang
-              bersangkutan agar tidak terjadi kesalahpahaman Selesaikan dengan tuntas secara detail dan Proaktif.
-            </p>
-          </div>
-        </div>
-
-
-        <!-- Right Values -->
-        <div class="value-item reveal reveal-right">
-          <div class="value-icon">
-            <img src="HomeAssets/CaringIcon.png" alt="Caring" />
-            <h3>Caring</h3>
-          </div>
-          <div class="value-content">
-            <p>
-              Setiap anggota hunter yang hadir disini semuanya adalah anggota keluarga ke 2. diharapkan saling peduli
-              dan memperhatikan satu dengan yang lainnya.
-            </p>
-          </div>
-        </div>
+        <!-- Arrow Right -->
+        <button class="values-arrow values-arrow-right" id="valuesArrowRight" aria-label="Next value">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </button>
       </div>
+
+      <!-- Dots -->
+      <div class="values-dots" id="valuesDots"></div>
     </div>
   </section>
 

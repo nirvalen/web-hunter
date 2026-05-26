@@ -19,12 +19,7 @@ if (document.readyState === 'loading') {
   revealHero();
 }
 
-// ── Navbar logo hide on scroll ──
-const navbarLogo = document.getElementById('navbar-logo');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 20) navbarLogo.classList.add('hidden');
-  else navbarLogo.classList.remove('hidden');
-});
+
 
 // ── Dynamic Projects Data ──
 const projectsData = [
@@ -138,4 +133,17 @@ function goToProject(index) {
 // Initialize on load
 document.addEventListener('DOMContentLoaded', () => {
   renderProject(1); // Load with Toerah Inventory by default
+});
+
+
+// ── Navbar logo hide on scroll ──
+const navbarLogo = document.getElementById("navbar-logo");
+const SCROLL_THRESHOLD = 150;
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > SCROLL_THRESHOLD) {
+    navbarLogo.classList.add("hidden");
+  } else {
+    navbarLogo.classList.remove("hidden");
+  }
 });
