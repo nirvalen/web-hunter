@@ -126,9 +126,10 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* clip content that scrolls behind navbar */
   isolation: isolate;
-  padding: 2.6vw;
+  background-color: var(--color-navbar);
+  padding: 0 2.6vw;
+  height: 5vw;
 }
 
 .navbar-logo {
@@ -137,7 +138,6 @@ a {
   display: flex;
   align-items: center;
   margin-left: 2.6vw;
-  /* smooth transition for show/hide */
   opacity: 1;
   transform: translateX(0);
   transition:
@@ -159,12 +159,10 @@ a {
   display: flex;
   align-items: center;
   list-style: none;
-  height: 6.5vh;
+  height: 100%;
   justify-content: center;
   gap: 1.5vw;
-  padding: 1.5vw;
-  background-color: var(--color-navbar);
-  border-radius: 1vw;
+  padding: 0 1vw;
 }
 
 .navbar-links a {
@@ -182,7 +180,6 @@ a {
 .navbar-links a.active {
   color: var(--color-text-hover);
 }
-
 
 /* ========================================
    HERO SECTION
@@ -265,13 +262,14 @@ a {
 .carousel-subtitle {
   position: absolute;
   bottom: 0;
+
 }
 
 .carousel-subtitle p {
   font-family: var(--font-title);
   font-size: 1.2vw;
   font-weight: 700;
-  color: var(--color-text-muted);
+  color: rgb(163, 163, 163);
 }
 
 /* ========================================
@@ -310,19 +308,23 @@ a {
 .about-content {
   position: relative;
   z-index: 1;
-  width: 31.25vw;
+  width: 100vw;
+  height: auto;
   text-align: justify;
   justify-content: center;
+  padding: 10vw;
 }
 
 .about-title {
   font-family: var(--font-title);
   font-size: 5vw;
   color: var(--color-text-main);
-  font-weight: 800;
-  display: flex;
+  font-weight: 900;
   line-height: 1;
-  margin-bottom: 3vh;
+  height: auto;
+  text-align: left;
+  display: block;
+  margin-bottom: 1vw;
 }
 
 .accent-red {
@@ -332,8 +334,8 @@ a {
 .about-subtitle {
   font-family: var(--font-title);
   font-size: 1.5vw;
-  font-weight: 400;
-  color: var(--color-text-main);
+  font-weight: 700;
+  color: rgb(163, 163, 163);
   margin-bottom: 3vh;
 }
 
@@ -341,6 +343,7 @@ a {
   font-family: var(--font-body);
   font-size: 1vw;
   color: var(--color-text-main);
+  width: 55.208vw;
 }
 
 /* ========================================
@@ -475,7 +478,7 @@ a {
 .entrepreneur-content {
   position: absolute;
   right: 0;
-  width: 55vw;
+  width: 100vw;
   height: 100%;
   padding: 10vw;
   display: flex;
@@ -497,7 +500,7 @@ a {
   font-family: var(--font-title);
   font-size: 1.25vw;
   font-weight: 700;
-  color: var(--color-text-muted);
+  color: rgb(163, 163, 163);
   text-align: left;
   line-height: 1.1;
   margin-top: 1vh;
@@ -515,6 +518,7 @@ a {
   color: var(--color-text-main);
   line-height: 1.5;
   text-align: justify;
+  width: 55.208vw;
 }
 
 .entrepreneur-content span {
@@ -653,6 +657,7 @@ a {
   line-height: 1.1;
   color: var(--color-text-main);
   text-align: left;
+  margin-bottom: 3vh;
 }
 
 .footer-inner-content {
@@ -674,16 +679,15 @@ a {
 }
 
 .footer-inner-content h4 {
-  background-color: var(--color-bg-secondary);
   width: 10vw;
-  height: 3.5vw;
+  height: auto;
   font-size: 1.6vw;
-  text-align: center;
+  text-align: left;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: left;
+  justify-content: left;
   border-radius: 1vw;
-  font-weight: 100;
+  font-weight: bold;
   text-transform: uppercase;
   font-family: var(--font-subtitle);
   color: var(--color-text-main);
@@ -701,6 +705,8 @@ a {
   display: flex;
   flex-direction: row;
   gap: 1vw;
+  font-size: 1vw;
+  text-align: justify;
 }
 
 .contact-sosmed img {
@@ -713,6 +719,7 @@ a {
   flex-direction: column;
   gap: 1.4vw;
   padding: 0.5vw 0;
+
 }
 
 .contact a:hover {
@@ -736,44 +743,44 @@ a {
 
   /* ── NAVBAR ── */
   .navbar {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 3vw 4vw;
-    justify-content: flex-start;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4vw;
+    height: 14vw;
   }
 
+  /* Logo reverts to absolute-left so the JS opacity/translateX hide still works */
   .navbar-logo {
-    position: static;
+    position: absolute;
+    left: 4vw;
     margin-left: 0;
-    transform: none;
-    overflow: hidden;
-    max-height: 80px;
-    margin-bottom: 2vw;
+    overflow: visible;
+    max-height: none;
+    margin-bottom: 0;
+    transform: translateX(0);
     transition:
-      max-height 0.35s ease,
-      margin-bottom 0.35s ease,
       opacity 0.3s ease,
       transform 0.3s ease;
   }
 
   .navbar-logo.hidden {
     opacity: 0;
-    max-height: 0;
-    margin-bottom: 0;
+    max-height: none;
     pointer-events: none;
-    transform: translateY(-6px);
+    transform: translateX(-16px);
   }
 
   .navbar-logo img {
-    width: 32vw;
+    width: 24vw;
   }
 
   .navbar-links {
-    align-self: center;
+    align-self: auto;
     gap: 5vw;
-    padding: 2.5vw 5vw;
+    padding: 0 3vw;
     height: auto;
-    border-radius: 3vw;
+    border-radius: 0;
   }
 
   .navbar-links a {
