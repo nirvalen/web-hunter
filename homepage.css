@@ -222,6 +222,7 @@ a {
   line-height: 1.6;
   max-width: 30vw;
   text-align: justify;
+  color: var(--color-text-main);
 }
 
 .hero-carousel-wrapper {
@@ -898,7 +899,7 @@ a {
   }
 
   .about::before {
-    background: 
+    background:
       linear-gradient(to top,
         rgba(12, 16, 22, 0.97) 20%,
         rgba(12, 16, 22, 0.55) 60%,
@@ -1113,7 +1114,7 @@ a {
 
   /* Overlay darkens both bottom and top so the photo text is clear */
   .entrepreneur::before {
-    background: 
+    background:
       linear-gradient(to top,
         rgba(12, 16, 22, 0.97) 20%,
         rgba(12, 16, 22, 0.55) 60%,
