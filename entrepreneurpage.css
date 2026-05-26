@@ -154,8 +154,10 @@ a {
   display: flex;
   align-items: center;
   list-style: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   height: 100%;
-  justify-content: flex-end;
   gap: 1.5vw;
   padding: 0 1vw;
 }
@@ -708,6 +710,9 @@ a {
   }
 
   .navbar-links {
+    flex: 1;
+    position: static;
+    transform: none;
     gap: 4vw;
     padding: 0;
     height: 100%;
