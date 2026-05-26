@@ -1,4 +1,3 @@
-
 // ── CAROUSEL ──────────────────────────────────────────────────────────────
 const track = document.getElementById("carouselTrack");
 const dotsCont = document.getElementById("carouselDots");
@@ -153,20 +152,23 @@ window.addEventListener("load", () => {
   });
 });
 
-// Navbar: hide logo when scrolled, show when at top
-const navbarLogo = document.getElementById("navbar-logo");
-const SCROLL_THRESHOLD = 100;
 
-window.addEventListener("scroll", () => {
-  if (window.scrollY > SCROLL_THRESHOLD) {
-    navbarLogo.classList.add("hidden");
-  } else {
-    navbarLogo.classList.remove("hidden");
-  }
-});
 
 // ── Mobile Carousel Enhancements (≤ 480px) ───────────────────────────────
 if (window.innerWidth <= 480) {
+
+
+  // Navbar: hide logo when scrolled, show when at top
+  const navbarLogo = document.getElementById("navbar-logo");
+  const SCROLL_THRESHOLD = 100;
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > SCROLL_THRESHOLD) {
+      navbarLogo.classList.add("hidden");
+    } else {
+      navbarLogo.classList.remove("hidden");
+    }
+  });
 
   // Touch / swipe — pauses the shared globalAutoTimer while finger is down
   const trackContainer = document.querySelector(".carousel-track-container");

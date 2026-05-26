@@ -410,7 +410,7 @@ a {
   font-weight: 800;
   line-height: 1.4;
   color: var(--color-text-main);
-  text-align: right;
+  text-align: left;
 }
 
 .project-title span {

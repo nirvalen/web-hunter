@@ -25,17 +25,6 @@ window.addEventListener("load", () => {
   });
 });
 
-// Navbar: hide logo when scrolled, show when at top
-const navbarLogo = document.getElementById("navbar-logo");
-const SCROLL_THRESHOLD = 100;
-
-window.addEventListener("scroll", () => {
-  if (window.scrollY > SCROLL_THRESHOLD) {
-    navbarLogo.classList.add("hidden");
-  } else {
-    navbarLogo.classList.remove("hidden");
-  }
-});
 
 const carouselItem = document.querySelectorAll(".carousel-item");
 
@@ -231,5 +220,20 @@ if (valuesTrackEl && valuesDotsCont && valuesArrowLeft && valuesArrowRight) {
 
   // Listen for resize
   window.addEventListener('resize', checkViewport);
+}
+
+if (window.innerWidth <= 480) {
+
+  // Navbar: hide logo when scrolled, show when at top
+  const navbarLogo = document.getElementById("navbar-logo");
+  const SCROLL_THRESHOLD = 100;
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > SCROLL_THRESHOLD) {
+      navbarLogo.classList.add("hidden");
+    } else {
+      navbarLogo.classList.remove("hidden");
+    }
+  });
 }
 // ── END Values Slider ─────────────────────────────────────────────────────

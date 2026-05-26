@@ -136,14 +136,17 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// ── Navbar logo hide on scroll ──
-const navbarLogo = document.getElementById("navbar-logo");
-const SCROLL_THRESHOLD = 150;
+if (window.innerWidth <= 480) {
 
-window.addEventListener("scroll", () => {
-  if (window.scrollY > SCROLL_THRESHOLD) {
-    navbarLogo.classList.add("hidden");
-  } else {
-    navbarLogo.classList.remove("hidden");
-  }
-});
+  // Navbar: hide logo when scrolled, show when at top
+  const navbarLogo = document.getElementById("navbar-logo");
+  const SCROLL_THRESHOLD = 100;
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > SCROLL_THRESHOLD) {
+      navbarLogo.classList.add("hidden");
+    } else {
+      navbarLogo.classList.remove("hidden");
+    }
+  });
+}
