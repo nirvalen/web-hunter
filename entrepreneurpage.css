@@ -699,19 +699,7 @@ a {
   padding: 0.5vw 0;
 }
 
-.contact a:hover {
-  color: rgb(90, 221, 29);
-  text-decoration: underline;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
 
-.footer-visitus .reveal a:hover {
-  color: rgb(90, 221, 29);
-  text-decoration: underline;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
 
 /* ========================================
    MOBILE RESPONSIVE — max-width: 480px
