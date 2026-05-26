@@ -125,7 +125,7 @@ a {
   z-index: 1000;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   isolation: isolate;
   background-color: var(--color-navbar);
   padding: 0 2.6vw;
@@ -133,26 +133,13 @@ a {
 }
 
 .navbar-logo {
-  position: absolute;
-  left: 0;
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
-  margin-left: 2.6vw;
-  opacity: 1;
-  transform: translateX(0);
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
 }
 
 .navbar-logo img {
   width: 15.625vw;
-}
-
-.navbar-logo.hidden {
-  opacity: 0;
-  transform: translateX(-16px);
-  pointer-events: none;
 }
 
 .navbar-links {
@@ -160,7 +147,7 @@ a {
   align-items: center;
   list-style: none;
   height: 100%;
-  justify-content: center;
+  justify-content: flex-end;
   gap: 1.5vw;
   padding: 0 1vw;
 }
@@ -271,7 +258,7 @@ a {
   font-family: var(--font-title);
   font-size: 1.2vw;
   font-weight: 700;
-  color: rgb(163, 163, 163);
+  color: rgb(255, 255, 255);
 }
 
 /* ========================================
@@ -337,7 +324,7 @@ a {
   font-family: var(--font-title);
   font-size: 1.5vw;
   font-weight: 700;
-  color: rgb(163, 163, 163);
+  color: rgb(255, 255, 255);
   margin-bottom: 3vh;
 }
 
@@ -536,7 +523,7 @@ a {
   font-family: var(--font-title);
   font-size: 1.25vw;
   font-weight: 700;
-  color: rgb(163, 163, 163);
+  color: rgb(255, 255, 255);
   text-align: left;
   line-height: 1.1;
   margin-top: 1vh;
@@ -765,56 +752,28 @@ a {
 @media (max-width: 480px) {
 
   /* ── NAVBAR ── */
-  /*
-   * Column layout: logo sits top-left naturally (position:static),
-   * links are centered in the row below.
-   * The full-width bar background is inherited from the desktop .navbar rule.
-   */
+  /* Single row: logo left, links right — same pattern as desktop */
   .navbar {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 3vw 4vw;
-    justify-content: flex-start;
-    height: auto;
-  }
-
-  .navbar-logo {
-    position: static;
-    margin-left: 0;
-    transform: none;
-    overflow: hidden;
-    max-height: 80px;
-    margin-bottom: 2vw;
-    transition:
-      max-height 0.35s ease,
-      margin-bottom 0.35s ease,
-      opacity 0.3s ease,
-      transform 0.3s ease;
-  }
-
-  .navbar-logo.hidden {
-    opacity: 0;
-    max-height: 0;
-    margin-bottom: 0;
-    pointer-events: none;
-    transform: translateY(-6px);
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 4vw;
+    height: 14vw;
   }
 
   .navbar-logo img {
     width: 32vw;
   }
 
-  /* Links centered in the column, no pill shape */
   .navbar-links {
-    align-self: center;
-    gap: 5vw;
-    padding: 2.5vw 5vw;
-    height: auto;
-    border-radius: 0;
+    gap: 4vw;
+    padding: 0;
+    height: 100%;
+    justify-content: flex-end;
   }
 
   .navbar-links a {
-    font-size: 3.5vw;
+    font-size: 3.2vw;
   }
 
   /* ── HERO ── */
