@@ -690,10 +690,7 @@ a {
   padding: 0.5vw 0;
 }
 
-.zoom-img img {
-  transform: scale(1.5);
-  transform-origin: center top;
-}
+
 
 /* ========================================
    MOBILE RESPONSIVE — max-width: 480px

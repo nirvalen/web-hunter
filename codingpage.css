@@ -1186,6 +1186,7 @@ a {
   .the-minds {
     padding: 8vw 5vw;
     gap: 5vw;
+
   }
 
   .the-minds-eyebrow {
@@ -1198,6 +1199,7 @@ a {
 
   .the-minds-grid {
     gap: 6vw 4vw;
+    justify-content: center;
   }
 
   .mind-card {
