@@ -577,6 +577,18 @@ a {
   margin-bottom: 1.3vw;
 }
 
+.maker-card-img img.img-rama {
+  object-position: 5% 40%;
+}
+
+.maker-card-img img.img-maryam {
+  object-position: 10% 50%;
+}
+
+.maker-card-img img.img-ziskind {
+  object-position: 10% 40%;
+}
+
 .maker-card:hover .maker-card-img img {
   transform: scale(1.04);
 }
