@@ -217,19 +217,21 @@ a {
 .hero-carousel-wrapper {
   display: flex;
   flex-direction: column;
-  height: 45vh;
+  gap: 1vw;
 }
 
 .carousel-container {
   position: relative;
-  position: absolute;
-  top: 0;
+  width: 53.5vw;
+  height: 53.5vh;
 }
 
 .carousel-container .carousel-item {
-  width: 53.5vw;
-  height: 53.5vh;
+  width: 100%;
+  height: 100%;
   position: absolute;
+  top: 0;
+  left: 0;
   transition: opacity 3s ease-in-out;
 }
 
@@ -251,9 +253,7 @@ a {
 }
 
 .carousel-subtitle {
-  position: absolute;
-  bottom: 0;
-
+  position: relative;
 }
 
 .carousel-subtitle p {
@@ -811,10 +811,10 @@ a {
     order: 2;
     position: relative;
     width: 90vw;
-    height: 55vw;
+    height: auto;
     flex: none;
-    margin-bottom: 10vw;
-    /* room for subtitle + gap before description */
+    margin-bottom: 4vw;
+    gap: 2vw;
   }
 
   .hero-description {
@@ -823,13 +823,13 @@ a {
     max-width: 100%;
   }
 
-  /* Keep carousel-container absolutely positioned within the wrapper */
+  /* Keep carousel-container positioned relative with fixed height */
   .carousel-container {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
+    top: auto;
+    left: auto;
     width: 100%;
-    height: 100%;
+    height: 55vw;
   }
 
   .carousel-container .carousel-item {
@@ -841,11 +841,11 @@ a {
     border-radius: 3vw;
   }
 
-  /* Subtitle sits just below the image with breathing room */
+  /* Subtitle sits naturally below the image */
   .carousel-subtitle {
-    position: absolute;
-    bottom: -10vw;
-    left: 0;
+    position: relative;
+    bottom: auto;
+    left: auto;
   }
 
   .carousel-subtitle p {
